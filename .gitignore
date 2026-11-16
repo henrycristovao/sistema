@@ -1,0 +1,4 @@
+# Ficheiros compilados e objetos temporarios
+*.o
+*.exe
+
