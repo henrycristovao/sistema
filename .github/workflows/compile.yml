@@ -11,9 +11,9 @@ jobs:
       - name: Configurar MSYS2 e GCC
         uses: msys2/setup-msys2@v2
         with:
-          msystem: MINGW64
+          msystem: UCRT64
           update: true
-          install: mingw-w-x86_64-toolchain
+          install: base-devel mingw-w64-ucrt64-gcc
 
       - name: Compilar Sistema e Setup
         shell: msys2 {0}
@@ -24,7 +24,7 @@ jobs:
       - name: Guardar Executaveis
         uses: actions/upload-artifact@v4
         with:
-          name: executaveis-prontos
+          name: executaveis-sistema
           path: |
             sistema_escolar.exe
             setup.exe
