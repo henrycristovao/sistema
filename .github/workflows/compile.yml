@@ -7,15 +7,20 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Configurar MinGW
-        uses: egor-tukin/setup-mingw@v2
-        
+
+      - name: Configurar MSYS2 e GCC
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: mingw-w-x86_64-toolchain
+
       - name: Compilar Sistema e Setup
+        shell: msys2 {0}
         run: |
           g++ -static -static-libgcc -static-libstdc++ aluno.cpp main.cpp -o sistema_escolar.exe
           g++ -static -static-libgcc -static-libstdc++ setup.cpp -o setup.exe
-          
+
       - name: Guardar Executaveis
         uses: actions/upload-artifact@v4
         with:
