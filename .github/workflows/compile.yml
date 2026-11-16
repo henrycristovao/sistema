@@ -1,0 +1,25 @@
+name: Compilar C++ Executable
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Configurar MinGW
+        uses: egor-tukin/setup-mingw@v2
+        
+      - name: Compilar Sistema e Setup
+        run: |
+          g++ -static -static-libgcc -static-libstdc++ aluno.cpp main.cpp -o sistema_escolar.exe
+          g++ -static -static-libgcc -static-libstdc++ setup.cpp -o setup.exe
+          
+      - name: Guardar Executaveis
+        uses: actions/upload-artifact@v4
+        with:
+          name: executaveis-prontos
+          path: |
+            sistema_escolar.exe
+            setup.exe
